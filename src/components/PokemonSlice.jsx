@@ -1,12 +1,6 @@
-import logo from './logo.svg';
-import './App.css';
-import Header from './components/Header';
-import { useEffect, useState } from 'react';
+import React from 'react';
 import axios from 'axios';
-import PokemonCard from './components/PokemonCard';
-
-
-function App() {
+function PokemonSlice() {
   const [pokemonList, setPokemonList] = useState([]);
   const [nextPage, setNextPage] = useState(null);
   const [prevPage, setPrevPage] = useState(null);
@@ -29,14 +23,26 @@ function App() {
 
     fetchPokemonList('https://pokeapi.co/api/v2/pokemon?limit=30');
   }, []);
+
   return (
-    <div className="App">
-      <Header></Header>
-      {pokemonList.map(item => (
-        <PokemonCard name={item.name} url={item.url} />
-      ))}
+    <div>
+      <h1>Pokémon List</h1>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <div>
+          <ul>
+            {pokemonList.map((pokemon, index) => (
+              <li key={index}>{pokemon.name}</li>
+            ))}
+          </ul>
+          <div>
+            {prevPage && <button onClick={() => fetchPokemonList(prevPage)}>Previous</button>}
+            {nextPage && <button onClick={() => fetchPokemonList(nextPage)}>Next</button>}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
-
-export default App;
+  export default pokemonSlice;
