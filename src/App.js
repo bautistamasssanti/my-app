@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import PokemonCard from './components/PokemonCard';
 
-
+//a
 function App() {
   const [pokemonList, setPokemonList] = useState([]);
   const [nextPage, setNextPage] = useState(null);
